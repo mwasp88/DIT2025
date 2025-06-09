@@ -18,7 +18,7 @@ enters or leaves the parking lot. The format of the message is:
 
 Serial parameters can be configured using environment variables:
 
-- `SERIAL_PORT` – device path (default `/dev/ttyUSB0`)
+- `SERIAL_PORT` – device path (default `COM9` on Windows, `/dev/ttyUSB0` on Linux/macOS)
 - `SERIAL_BAUD` – baud rate (default `9600`)
 
 If a serial port cannot be opened, the JSON message is printed to the server
