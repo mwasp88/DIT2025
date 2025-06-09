@@ -212,6 +212,19 @@
             }
         }
 
+        function sendSerialData(plate, isEntering) {
+            fetch('/serial_event', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    plate: plate,
+                    action: isEntering ? 1 : 0,
+                    slots: MAX_PARKING_CAPACITY,
+                    used: carsInParking.size
+                })
+            }).catch(err => console.error('Serial send error:', err));
+        }
+
         function processOcrResult(text) {
             const plateData = findPlateInDB(text);
             if (plateData) {
@@ -229,6 +242,7 @@
                     carsInParking.add(plateData.plate);
                 }
                 updateParkingCount();
+                sendSerialData(plateData.plate, parkingStatus === 'Entering');
                 lastPlateData = plateData;
                 outputDisplay.innerHTML = formatPlateDetails(plateData, parkingStatus);
             }
