@@ -6,7 +6,8 @@ try:
 except ImportError:  # Serial not installed, runtime will fail if used
     serial = None
 
-SERIAL_PORT = os.environ.get("SERIAL_PORT", "/dev/ttyUSB0")
+DEFAULT_SERIAL_PORT = "COM9" if os.name == "nt" else "/dev/ttyUSB0"
+SERIAL_PORT = os.environ.get("SERIAL_PORT", DEFAULT_SERIAL_PORT)
 SERIAL_BAUD = int(os.environ.get("SERIAL_BAUD", "9600"))
 serial_conn = None
 
